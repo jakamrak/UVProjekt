@@ -11,3 +11,6 @@ def prijava():
 @bottle.get('/registracija/')
 def registracija():
     return bottle.template('registracija.html')
+
+
+bottle.run(debug=True, reloader=True)
