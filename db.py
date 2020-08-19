@@ -5,6 +5,18 @@ tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
 dogodki: List[Dogodek] = []
 
+def je_registriran(uporabnisko_ime, tip):
+    if tip == 'Tutor':
+        for tutor in tutorji:
+            if tutor.uporabnisko_ime == uporabnisko_ime:
+                return True
+    elif tip == 'Ucenec':
+        for ucenec in ucenci:
+            if ucenec.uporabnisko_ime == uporabnisko_ime:
+                return True
+    return False
+    
+
 
 t1 = Tutor("tutor1", "geslo1")
 t2 = Tutor("tutor2", "geslo2")
@@ -20,7 +32,8 @@ t2.dogodki = [d2]
 u1.dogodki = [d1, d2]
 u2.dogodki = [d1, d2]
 
-tutorji.append(t1, t2)
-ucenci.append(u1, u2)
-dogodki.append(d1, d2)
+tutorji += [t1, t2]
+ucenci += [u1, u2]
+dogodki += [d1, d2]
+
 
