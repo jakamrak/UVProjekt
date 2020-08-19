@@ -82,11 +82,11 @@ def dogodki_get():
             })
         return bottle.template('dogodki.html', dogodki=dogodki, uporabnik=uporabnisko_ime)
 
-@bottle.post('/dogodek/') #tutor posreduje info o ustvarjenem dogodku
-
-@bottle.get('/dogodek/') #form za ustvarjanje dogodka
-
-@bottle.get('/dogodek/odstrani/') #za izbris dogodka
+#@bottle.post('/dogodek/') #tutor posreduje info o ustvarjenem dogodku
+#
+#@bottle.get('/dogodek/') #form za ustvarjanje dogodka
+#
+#@bottle.get('/dogodek/odstrani/') #za izbris dogodka
 
 
 
