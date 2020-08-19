@@ -5,19 +5,29 @@ tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
 dogodki: List[Dogodek] = []
 
-def je_registriran(uporabnisko_ime, tip):
-    if tip == 'Tutor':
-        for tutor in tutorji:
-            if tutor.uporabnisko_ime == uporabnisko_ime:
-                return True
-    elif tip == 'Ucenec':
-        for ucenec in ucenci:
-            if ucenec.uporabnisko_ime == uporabnisko_ime:
-                return True
+def je_registriran(uporabnisko_ime):
+    for tutor in tutorji:
+        if tutor.uporabnisko_ime == uporabnisko_ime:
+            return True
+    for ucenec in ucenci:
+        if ucenec.uporabnisko_ime == uporabnisko_ime:
+            return True
     return False
     
 
+def obstaja(uporabnisko_ime, geslo):
+    for tutor in tutorji:
+        if tutor.uporabnisko_ime == uporabnisko_ime and tutor.geslo == geslo:
+            return True
+    for ucenec in ucenci:
+        if ucenec.uporabnisko_ime == uporabnisko_ime and ucenec.geslo == geslo:
+            return True
+    return False
 
+
+
+
+#testni
 t1 = Tutor("tutor1", "geslo1")
 t2 = Tutor("tutor2", "geslo2")
 
