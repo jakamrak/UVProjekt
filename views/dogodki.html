@@ -16,16 +16,21 @@
     <div class="container">
         <!--Table-->
         <h1> {{uporabnik}}</h1>
+
         <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
+        <a href='/ustvari-dogodek/'><button class="btn btn-primary">Ustvari dogodek</button></a>
         <table id="tablePreview" class="table">
             <!--Table head-->
             <thead>
                 <tr>
+                    <th>Datum</th>
+                    <th>Ura</th>
+                    <th>Ime in priimek</th>
                     <th>Letnik</th>
                     <th>Smer</th>
                     <th>Učilnica</th>
                     <th>Predmet</th>
-                    <th>Ura</th>
+                    
                 </tr>
             </thead>
             <!--Table head-->
@@ -33,11 +38,13 @@
             <tbody>
                 % for dogodek in dogodki:
                 <tr>
+                    <td>{{dogodek['datum']}}</td>
+                    <td>{{dogodek['ura']}}</td>
+                    <td>{{dogodek['ime']}}</td>
                     <td>{{dogodek['letnik']}}</td>
                     <td>{{dogodek['smer']}}</td>
                     <td>{{dogodek['ucilnica']}}</td>
                     <td>{{dogodek['predmet']}}</td>
-                    <td>{{dogodek['ura']}}</td>
                 </tr>
 
                 % end

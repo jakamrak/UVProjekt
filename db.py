@@ -1,10 +1,13 @@
+#database
 from typing import List
 from model import *
 
 tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
-dogodki: List[Dogodek] = []
+dogodki: List[Dogodek] = []   #probaj sortirat dogodke po uri in datumu
 
+
+#preveri ali je kdo s tem uporabniskim imenom ze registriran
 def je_registriran(uporabnisko_ime):
     for tutor in tutorji:
         if tutor.uporabnisko_ime == uporabnisko_ime:
@@ -15,6 +18,7 @@ def je_registriran(uporabnisko_ime):
     return False
     
 
+#preveri ali ta profil obstaja
 def obstaja(uporabnisko_ime, geslo):
     for tutor in tutorji:
         if tutor.uporabnisko_ime == uporabnisko_ime and tutor.geslo == geslo:
@@ -34,8 +38,8 @@ t2 = Tutor("tutor2", "geslo2")
 u1 = Ucenec("ucenec1", "geslo1")
 u2 = Ucenec("ucenec2", "geslo2")
 
-d1 = Dogodek(1, 'financna mat', 201, 'Analiza1', '14:30')
-d2 = Dogodek(2, 'financna mat', 205, 'Analiza2', '17:30')
+d1 = Dogodek('28/12', '14:30', 'dogodek1', 1, 'financna mat', 201, 'Analiza1')
+d2 = Dogodek('22/9', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2')
 
 t1.dogodki = [d1]
 t2.dogodki = [d2]
