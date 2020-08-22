@@ -1,3 +1,6 @@
+% rebase("base.html")
+
+
 <html lang="en">
 
 <head>
@@ -9,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
-    <title>Registracija</title>
+    <title>Dodaj_dogodek</title>
 </head>
 
 <body>
@@ -18,7 +21,7 @@
             <fieldset>
 
                 <!-- Form Name -->
-                <legend>Ustvari dogodek</legend>
+                <legend>Dodaj dogodek</legend>
 
                 <!-- Text input-->
                 <div class="form-group">
@@ -34,9 +37,9 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="letnik">Letnik:</label>
                     <div class="col-md-4">
-                        <input id="letnik" name="letnik" type="text" placeholder="letnik..."
+                        <input id="letnik" name="letnik" type="text" placeholder="vpišite številko..."
                             class="form-control input-md" required="">
-                        <span class="help-block">Vpišite kateri letnik obiskujete</span>
+                        <span class="help-block"> Primer: 1</span>
                     </div>
                 </div>
 
@@ -54,9 +57,9 @@
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ucilnica">Učilnica:</label>
                     <div class="col-md-4">
-                        <input id="ucilnica" name="ucilnica" type="text" placeholder="ucilnica..."
+                        <input id="ucilnica" name="ucilnica" type="text" placeholder="številka učilnice..."
                             class="form-control input-md" required="">
-                        <span class="help-block">Vpišite učilnico dogodka</span>
+                        <span class="help-block">Primer: 201</span>
                     </div>
                 </div>
 
@@ -70,13 +73,33 @@
                     </div>
                 </div>
 
+                <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+
+                <div class="form-group ">
+                    <label class="col-md-4 control-label" for="datum">Datum:</label>
+                    <div class="input-group col-md-4">
+                        <div class="input-group-addon">
+                            <i class="fa fa-calendar">
+                            </i>
+                        </div>
+                        <div class="col-md-20">
+                            <input class="form-control" required="" id="datum" name="datum" placeholder="MM/DD/YYYY"
+                                type="text" />
+                            <span class="help-block"> Primer: 25/8/2020</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+
+                </div>
+
                 <!-- Text input-->
                 <div class="form-group">
                     <label class="col-md-4 control-label" for="ura">Ura:</label>
                     <div class="col-md-4">
                         <input id="ura" name="ura" type="text" placeholder="ura..." class="form-control input-md"
                             required="">
-                        <span class="help-block">Vpišite uro začetka dogodka</span>
+                        <span class="help-block">Primer: 12:45</span>
                     </div>
                 </div>
 
@@ -85,12 +108,15 @@
                     <label class="col-md-4 control-label" for="dodajdogodek"></label>
                     <div class="col-md-8">
                         <button id="dodajdogodek" name="dodajdogodek" class="btn btn-success">Dodaj</button>
-                        <button id="preklicidodajanje" name="preklicidodajanje" class="btn btn-danger">Prekliči</button>
+                        <!--<button id="preklicidodajanje" name="preklicidodajanje" class="btn btn-danger">Prekliči</button> -->
+
                     </div>
                 </div>
 
             </fieldset>
         </form>
+        <a href='/dogodki/'><button id="preklicidodajanje" name="preklicidodajanje"
+                class="btn btn-danger">Prekliči</button></a>
 
     </div>
 

@@ -1,5 +1,5 @@
 import bottle
-from model import *
+from model import Ucenec, Tutor, Dogodek
 import db
 
 # slovar oseb
@@ -37,7 +37,7 @@ def prijava_get():
     if uporabnik is not None:
         bottle.redirect('/dogodki/')
     else:
-        return bottle.template('prijava.html')
+        return bottle.template('prijava.html', error='')
 
 
 @bottle.get('/registracija/')
@@ -106,14 +106,32 @@ def registracija_post():
     bottle.redirect('/')
 
 
-@bottle.get('/ustvari-dogodek/')  # form za ustvarjanje dogodka
-def ustvari_dogodek_get():
+@bottle.get('/dodaj-dogodek/')  # form za ustvarjanje dogodka
+def dodaj_dogodek_get():
     # pazit mores da ne ustvarita dve osebi dogodka ob isti uri v isti ucilnici
-    return bottle.template('ustvari_dogodek.html', error='')
+    return bottle.template('dodaj_dogodek.html', error='')
 
 
-# @bottle.post('/ustvari-dogodek/') #tutor posreduje info o ustvarjenem dogodku
-# def ustvari_dogodek_post():
+@bottle.post('/dodaj-dogodek/') #tutor posreduje info o ustvarjenem dogodku
+def dodaj_dogodek_post():
+    datum = bottle.request.forms.getunicode('datum')
+    ura = bottle.request.forms.getunicode('ura')
+    ime = bottle.request.forms.getunicode('ime')
+    letnik = bottle.request.forms.getunicode('letnik')
+    smer = bottle.request.forms.getunicode('smer')
+    ucilnica = bottle.request.forms.getunicode('ucilnica')
+    predmet = bottle.request.forms.getunicode('predmet')
+
+    if db.dogodek_obstaja(datum, ura, ucilnica):
+        return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
+    else:
+        nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
+        dodaj_dogodek()
+        db.dogodki.append(nov)
+
+    bottle.redirect('/')
+
+
 
 
 # @bottle.get('/dogodek/odstrani/') #za izbris dogodka
