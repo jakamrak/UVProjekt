@@ -5,8 +5,7 @@ from model import *
 tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
 dogodki: List[Dogodek] = [] #probaj sortirat dogodke po uri in datumu
-dogodki_ucenec = [] #dogodki, vidni ucencem oz tisti, ki so se prosti
-dogodki_tutor = []  #zasedeni dogodki
+
 
 
 #preveri ali je kdo s tem uporabniskim imenom ze registriran
@@ -27,6 +26,14 @@ def obstaja(uporabnisko_ime, geslo):
             return True
     for ucenec in ucenci:
         if ucenec.uporabnisko_ime == uporabnisko_ime and ucenec.geslo == geslo:
+            return True
+    return False
+
+
+
+def dogodek_obstaja(datum, ura, ucilnica):
+    for dogodek in dogodki:
+        if dogodek.datum == datum and dogodek.ucilnica == ucilnica and dogodek.ura == ura:
             return True
     return False
 
@@ -60,7 +67,5 @@ u2.dogodki = [d1, d2]
 tutorji += [t1, t2]
 ucenci += [u1, u2]
 dogodki += [d1, d2]
-dogodki_ucenec += [d1] 
-dogodki_tutor += [d2]
 
 
