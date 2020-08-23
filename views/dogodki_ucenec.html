@@ -1,0 +1,43 @@
+% rebase("base.html")
+
+<div class="container">
+    <!--Table-->
+    <h1> {{uporabnik}}</h1>
+
+    <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
+    <a href='/dodaj-dogodek/'><button class="btn btn-primary">Prijava na dogodek</button></a>  <!--ustvari prijavo na dogodek -->
+    <table id="tablePreview" class="table">
+        <!--Table head-->
+        <thead>
+            <tr>
+                <th>Datum</th>
+                <th>Ura</th>
+                <th>Ime in priimek</th>
+                <th>Letnik</th>
+                <th>Smer</th>
+                <th>Učilnica</th>
+                <th>Predmet</th>
+                
+            </tr>
+        </thead>
+        <!--Table head-->
+        <!--Table body-->
+        <tbody>
+            % for dogodek in dogodki:
+            <tr>
+                <td>{{dogodek['datum']}}</td>
+                <td>{{dogodek['ura']}}</td>
+                <td>{{dogodek['ime']}}</td>
+                <td>{{dogodek['letnik']}}</td>
+                <td>{{dogodek['smer']}}</td>
+                <td>{{dogodek['ucilnica']}}</td>
+                <td>{{dogodek['predmet']}}</td>
+            </tr>
+
+            % end
+
+        </tbody>
+        <!--Table body-->
+    </table>
+    <!--Table-->
+</div>

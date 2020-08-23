@@ -11,6 +11,10 @@ tip_osebe = {
     2: 'Ucenec'
 }
 
+
+
+
+
 # def dodaj_uporabnike():
 #    dogodki = []
 #    for d in db.dogodki:
@@ -29,13 +33,17 @@ tip_osebe = {
 def zacetna_stran():
     bottle.redirect('/prijava/')
 
-
+#moras glede na tip povedat kam ga preusmeri ce ze ima cookie!!!!
 @bottle.get('/prijava/')
 def prijava_get():
     # da se ne rabi prijavit ce se je pred minuto prijavu
     uporabnik = bottle.request.get_cookie('uporabnik')
+    #tip = db.slovar_tipov[uporabnik]   
     if uporabnik is not None:
+        #if tip == 'Tutor':
         bottle.redirect('/dogodki/')
+        #else:
+            #bottle.redirect('/dogodki-ucenec')
     else:
         return bottle.template('prijava.html', error='')
 
@@ -76,14 +84,14 @@ def odjava_get():
 def prijava_post():
     uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
     geslo = bottle.request.forms.getunicode('geslo')
-    # tip = ? moras nekako dobit tip iz cookija vrjetno
+     #moras nekako dobit tip iz cookija vrjetno
     if db.obstaja(uporabnisko_ime, geslo):
         bottle.response.set_cookie('uporabnik', uporabnisko_ime, path='/')
-        # if tip == 'Tutor':
-        #    pass
-        # else:
-        #    pass
-        bottle.redirect('/dogodki/')
+        tip = db.slovar_tipov[uporabnisko_ime]
+        if tip == 'Tutor':
+            bottle.redirect('/dogodki/')
+        else:
+            bottle.redirect('/dogodki-ucenec/')
     else:
         return bottle.template('prijava.html', error='Prijava ni uspela.')
 
@@ -102,7 +110,8 @@ def registracija_post():
     elif tip == 'Tutor':
         tutor = Tutor(uporabnisko_ime, geslo)
         db.tutorji.append(tutor)
-
+    
+    db.slovar_tipov[uporabnisko_ime] = tip
     bottle.redirect('/')
 
 
@@ -132,6 +141,24 @@ def dodaj_dogodek_post():
     bottle.redirect('/')
 
 
+@bottle.get('/dogodki-ucenec/') #dogodki ki jih vidis ce si registriran kot ucenec
+def dogodki_ucenec_get():
+    uporabnisko_ime = bottle.request.get_cookie('uporabnik')
+    if uporabnisko_ime is None:
+        bottle.redirect('/prijava/')
+    else:
+        dogodki = []
+        for d in db.dogodki_ucenec:
+            dogodki.append({
+                'datum': d.datum,
+                'ime': d.ime,
+                'letnik': str(d.letnik),
+                'smer': d.smer,
+                'ucilnica': d.ucilnica,
+                'predmet': d.predmet,
+                'ura': d.ura
+            })
+        return bottle.template('dogodki_ucenec.html', dogodki=dogodki, uporabnik=uporabnisko_ime)
 
 
 # @bottle.get('/dogodek/odstrani/') #za izbris dogodka

@@ -8,7 +8,7 @@ class Tutor:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-        self.dogodki_tutor: List(Dogodek) = []
+        self.dogodki_tutor: List(Dogodek) = []  
         
 
     def dodaj_dogodek(self, letnik: int, smer: str, ucilnica: int, predmet: str, ura: str): #doda dogodek in ga vrne
@@ -29,7 +29,7 @@ class Ucenec:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-        self.dogodki_ucenec: List(Dogodek) = []
+        self.dogodki_ucenec: List(Dogodek) = []  
     
     
     def prijava_v_dogodek(self, id_dogodka):

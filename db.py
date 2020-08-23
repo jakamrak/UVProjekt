@@ -5,7 +5,8 @@ from model import *
 tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
 dogodki: List[Dogodek] = [] #probaj sortirat dogodke po uri in datumu
-
+dogodki_ucenec = [] #tukaj bojo zbrani prosti dogodki
+slovar_tipov = {}
 
 
 #preveri ali je kdo s tem uporabniskim imenom ze registriran
