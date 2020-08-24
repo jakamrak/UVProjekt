@@ -153,23 +153,24 @@ def registracija_post():
 def dodaj_dogodek_post():
     datum = bottle.request.forms.getunicode('datum')
     ura = bottle.request.forms.getunicode('ura')
-    ime = bottle.request.forms.getunicode('ime')
+    ime = bottle.request.forms.getunicode('imeinpriimek')
     letnik = bottle.request.forms.getunicode('letnik')
     smer = bottle.request.forms.getunicode('smer')
     ucilnica = bottle.request.forms.getunicode('ucilnica')
     predmet = bottle.request.forms.getunicode('predmet')
-    dan, mesec, leto = int(model.razbije_datum(datum)[0]), int(model.razbije_datum(datum)[1]), int(model.razbije_datum(datum)[2])
+    dan, mesec, leto = int(razbije_datum(datum)[0]), int(razbije_datum(datum)[1]), int(razbije_datum(datum)[2])
     
     if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
         if db.dogodek_obstaja(datum, ura, ucilnica):
             return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
         else:
             nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
-            dodaj_dogodek()
             db.dogodki.append(nov)
             bottle.redirect('/')
     elif je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):
         return bottle.template('dodaj_dogodek.html', error=f'Ura {ura} ni veljavna.')
+    elif not je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):
+        return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} in ura {ura} nista veljavna.')
     else:
         return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} ni veljaven.')
     

@@ -47,14 +47,12 @@ def je_veljavna_ura(ura):
 class Tutor:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
-        self.geslo: str = geslo
-        self.dogodki: List(Dogodek) = []  
+        self.geslo: str = geslo 
         
 
     def dodaj_dogodek(self, letnik: int, smer: str, ucilnica: int, predmet: str, ura: str): #doda dogodek in ga vrne
         #doda ga v dogodke tutorja ter ga returna in to uporabi za dodat v dbju
-        nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet, self)
-        self.dogodki.append(nov)
+        nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet, self.uporabnisko_ime)
         return nov
 
         #tlele morem se id_dogodka nekako nastimat?
@@ -69,7 +67,7 @@ class Ucenec:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-        self.dogodki: List(Dogodek) = []  
+        #self.dogodki: List(Dogodek) = []  
     
     
 
@@ -90,7 +88,7 @@ class Ucenec:
 
 
 class Dogodek:
-    def __init__(self, datum: str, ura: str, ime: str, letnik: int, smer: str, ucilnica: int, predmet: str, mail: str):
+    def __init__(self, datum: str, ura: str, ime: str, letnik: int, smer: str, ucilnica: int, predmet: str): #dodaj tutorja dogodka
         self.datum: str = datum
         self.ura: str = ura
         self.ime: str = ime
@@ -98,17 +96,20 @@ class Dogodek:
         self.smer: str = smer
         self.ucilnica: int = ucilnica
         self.predmet: str = predmet
-        self.mail: str= mail
         self.id = self.ustvari_id()
+        #self.tutor = tutor
+        #self.ucenec = None
+
+    
+    #def nastavi_ucenca(self, ucenec):
+    #    self.ucenec = ucenec
 
 
     def ustvari_id(self): 
         return secrets.token_urlsafe(5)
 
 
-    #def ali_ze_obstaja(self, datum, ura, ucilnica): #preveri ali tak dogodek že obstaja
-    #    for dogodek in self.dogodki:
-    #        if 
+    
 
 
 

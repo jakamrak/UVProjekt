@@ -60,8 +60,8 @@ t2 = Tutor("tutor2", "geslo2")
 u1 = Ucenec("ucenec1", "geslo1")
 u2 = Ucenec("ucenec2", "geslo2")
 
-d1 = Dogodek('28/12/2020', '14:30', 'dogodek1', 1, 'financna mat', 201, 'Analiza1', 'tutor1@gmail.com' )
-d2 = Dogodek('22/9/2020', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2', 'tutor2@gmail.com')
+d1 = Dogodek('28/12/2020', '14:30', 'dogodek1', 1, 'financna mat', 201, 'Analiza1')
+d2 = Dogodek('22/9/2020', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2')
 
 t1.dogodki = [d1]
 t2.dogodki = [d2]
