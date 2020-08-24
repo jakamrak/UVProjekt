@@ -40,12 +40,12 @@ def dogodek_obstaja(datum, ura, ucilnica):
 
 
 #slovar_dogodkov =  {87654: Dogodek(...),...}
-#slovar_stanja = {87654:1, 73645:2 }
-#dogodki_ucenci = []
+#slovar_stanja = {87654:1, 73645:2 }  #1 pomeni prosto 2 pa zasedeno
+#dogodki_ucenec = []
 #for id in slovar_stanja:
 #    if slovar_stanja[id] == 1:
-#        dogodki_ucenci.append(slovar_dogodkov[id])
-#    return dogodki_ucenci
+#        dogodki_ucenec.append(slovar_dogodkov[id])
+#    return dogodki_ucenec
     
 
 
