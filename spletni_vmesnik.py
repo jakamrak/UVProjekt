@@ -49,9 +49,11 @@ def prijava_get():
         return bottle.template('prijava.html', error='')
 
 
+
 @bottle.get('/registracija/')
 def registracija_get():
     return bottle.template('registracija.html', error='')
+
 
 
 @bottle.get('/dogodki/')
@@ -75,77 +77,6 @@ def dogodki_get():
         return bottle.template('dogodki.html', dogodki=dogodki, uporabnik=uporabnisko_ime)
 
 
-@bottle.get('/odjava/')
-def odjava_get():
-    bottle.response.delete_cookie('uporabnik', path='/')
-    bottle.redirect('/prijava/')
-
-
-@bottle.post('/prijava/')
-def prijava_post():
-    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
-    geslo = bottle.request.forms.getunicode('geslo')
-     #moras nekako dobit tip iz cookija vrjetno
-    if db.obstaja(uporabnisko_ime, geslo):
-        bottle.response.set_cookie('uporabnik', uporabnisko_ime, path='/')
-        tip = db.slovar_tipov[uporabnisko_ime]
-        if tip == 'Tutor':
-            bottle.redirect('/dogodki/')
-        else:
-            bottle.redirect('/dogodki-ucenec/')
-    else:
-        return bottle.template('prijava.html', error='Prijava ni uspela.')
-
-
-@bottle.post('/registracija/')
-def registracija_post():
-    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
-    geslo = bottle.request.forms.getunicode('geslo')
-    tip = tip_osebe[int(bottle.request.forms.getunicode('tip_osebe'))]
-
-    if db.je_registriran(uporabnisko_ime):
-        return bottle.template('registracija.html', error=f'Uporabniško ime "{uporabnisko_ime}" že obstaja.')
-    if tip == 'Ucenec':
-        ucenec = Ucenec(uporabnisko_ime, geslo)
-        db.ucenci.append(ucenec)
-    elif tip == 'Tutor':
-        tutor = Tutor(uporabnisko_ime, geslo)
-        db.tutorji.append(tutor)
-    
-    db.slovar_tipov[uporabnisko_ime] = tip
-    bottle.redirect('/')
-
-
-@bottle.get('/dodaj-dogodek/')  # form za ustvarjanje dogodka
-def dodaj_dogodek_get():
-    # pazit mores da ne ustvarita dve osebi dogodka ob isti uri v isti ucilnici
-    return bottle.template('dodaj_dogodek.html', error='')
-
-
-@bottle.post('/dodaj-dogodek/') #tutor posreduje info o ustvarjenem dogodku
-def dodaj_dogodek_post():
-    datum = bottle.request.forms.getunicode('datum')
-    ura = bottle.request.forms.getunicode('ura')
-    ime = bottle.request.forms.getunicode('ime')
-    letnik = bottle.request.forms.getunicode('letnik')
-    smer = bottle.request.forms.getunicode('smer')
-    ucilnica = bottle.request.forms.getunicode('ucilnica')
-    predmet = bottle.request.forms.getunicode('predmet')
-    dan, mesec, leto = int(model.razbije_datum(datum)[0]), int(model.razbije_datum(datum)[1]), int(model.razbije_datum(datum)[2])
-    
-    if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
-        if db.dogodek_obstaja(datum, ura, ucilnica):
-            return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
-        else:
-            nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
-            dodaj_dogodek()
-            db.dogodki.append(nov)
-            bottle.redirect('/')
-    else:
-        return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} ni veljaven.')
-   
-
-
 
 @bottle.get('/dogodki-ucenec/') #dogodki ki jih vidis ce si registriran kot ucenec
 def dogodki_ucenec_get():
@@ -167,7 +98,113 @@ def dogodki_ucenec_get():
         return bottle.template('dogodki_ucenec.html', dogodki=dogodki, uporabnik=uporabnisko_ime)
 
 
-# @bottle.get('/dogodek/odstrani/') #za izbris dogodka
+
+@bottle.get('/odjava/')
+def odjava_get():
+    bottle.response.delete_cookie('uporabnik', path='/')
+    bottle.redirect('/prijava/')
+
+
+
+@bottle.get('/dodaj-dogodek/')  # form za ustvarjanje dogodka
+def dodaj_dogodek_get():
+    return bottle.template('dodaj_dogodek.html', error='')
+
+
+
+@bottle.post('/prijava/')
+def prijava_post():
+    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+     #moras nekako dobit tip iz cookija vrjetno
+    if db.obstaja(uporabnisko_ime, geslo):
+        bottle.response.set_cookie('uporabnik', uporabnisko_ime, path='/')
+        tip = db.slovar_tipov[uporabnisko_ime]
+        if tip == 'Tutor':
+            bottle.redirect('/dogodki/')
+        else:
+            bottle.redirect('/dogodki-ucenec/')
+    else:
+        return bottle.template('prijava.html', error='Prijava ni uspela.')
+
+
+
+@bottle.post('/registracija/')
+def registracija_post():
+    uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
+    geslo = bottle.request.forms.getunicode('geslo')
+    tip = tip_osebe[int(bottle.request.forms.getunicode('tip_osebe'))]
+
+    if db.je_registriran(uporabnisko_ime):
+        return bottle.template('registracija.html', error=f'Uporabniško ime "{uporabnisko_ime}" že obstaja.')
+    if tip == 'Ucenec':
+        ucenec = Ucenec(uporabnisko_ime, geslo)
+        db.ucenci.append(ucenec)
+    elif tip == 'Tutor':
+        tutor = Tutor(uporabnisko_ime, geslo)
+        db.tutorji.append(tutor)
+    
+    db.slovar_tipov[uporabnisko_ime] = tip
+    bottle.redirect('/')
+
+
+
+@bottle.post('/dodaj-dogodek/') #tutor posreduje info o ustvarjenem dogodku
+def dodaj_dogodek_post():
+    datum = bottle.request.forms.getunicode('datum')
+    ura = bottle.request.forms.getunicode('ura')
+    ime = bottle.request.forms.getunicode('ime')
+    letnik = bottle.request.forms.getunicode('letnik')
+    smer = bottle.request.forms.getunicode('smer')
+    ucilnica = bottle.request.forms.getunicode('ucilnica')
+    predmet = bottle.request.forms.getunicode('predmet')
+    dan, mesec, leto = int(model.razbije_datum(datum)[0]), int(model.razbije_datum(datum)[1]), int(model.razbije_datum(datum)[2])
+    
+    if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
+        if db.dogodek_obstaja(datum, ura, ucilnica):
+            return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
+        else:
+            nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
+            dodaj_dogodek()
+            db.dogodki.append(nov)
+            bottle.redirect('/')
+    elif je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):
+        return bottle.template('dodaj_dogodek.html', error=f'Ura {ura} ni veljavna.')
+    else:
+        return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} ni veljaven.')
+    
+   
+
+
+
+
+
+
+# @bottle.get('/odstrani-dogodek/') #za izbris dogodka
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 bottle.run(debug=True, reloader=True)

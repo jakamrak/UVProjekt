@@ -2,111 +2,112 @@
 
 
 
-    <div class="container shadow p-3 mb-5 bg-white rounded">
-        <form class="form-horizontal">
-            <fieldset>
+<div class="container shadow p-3 mb-5 bg-white rounded">
 
-                <!-- Form Name -->
-                <legend>Dodaj dogodek</legend>
+    <form class="form-horizontal">
+        <fieldset>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="imeinpriimek">Ime in priimek:</label>
-                    <div class="col-md-4">
-                        <input id="imeinpriimek" name="imeinpriimek" type="text" placeholder="ime..."
-                            class="form-control input-md" required="">
-                        <span class="help-block">Vpišite vaše polno ime </span>
+            <!-- Form Name -->
+            <legend>Dodaj dogodek</legend>
+
+            <h3 style="color:red">
+                {{error}}
+            </h3>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="imeinpriimek">Ime in priimek:</label>
+                <div class="col-md-4">
+                    <input id="imeinpriimek" name="imeinpriimek" type="text" placeholder="ime..."
+                        class="form-control input-md" required="">
+                    <span class="help-block">Vpišite vaše polno ime </span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="letnik">Letnik:</label>
+                <div class="col-md-4">
+                    <input id="letnik" name="letnik" type="text" placeholder="vpišite številko..."
+                        class="form-control input-md" required="">
+                    <span class="help-block"> Primer: 1</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="smer">Smer:</label>
+                <div class="col-md-4">
+                    <input id="smer" name="smer" type="text" placeholder="vaša smer..." class="form-control input-md"
+                        required="">
+                    <span class="help-block">Vpišite kateri študij obiskujete</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ucilnica">Učilnica:</label>
+                <div class="col-md-4">
+                    <input id="ucilnica" name="ucilnica" type="text" placeholder="številka učilnice..."
+                        class="form-control input-md" required="">
+                    <span class="help-block">Primer: 201</span>
+                </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="predmet">Predmet:</label>
+                <div class="col-md-4">
+                    <input id="predmet" name="predmet" type="text" placeholder="predmet..."
+                        class="form-control input-md" required="">
+                    <span class="help-block">Vpišite za kateri predmet nudite pomoč</span>
+                </div>
+            </div>
+
+            <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
+
+            <div class="form-group ">
+                <label class="col-md-4 control-label" for="datum">Datum:</label>
+                <div class="input-group col-md-4">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar">
+                        </i>
+                    </div>
+                    <div class="col-md-20">
+                        <input class="form-control" required="" id="datum" name="datum" placeholder="MM/DD/YYYY"
+                            type="text" />
+                        <span class="help-block"> Primer: 25/8/2020</span>
                     </div>
                 </div>
+            </div>
+            <div class="form-group">
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="letnik">Letnik:</label>
-                    <div class="col-md-4">
-                        <input id="letnik" name="letnik" type="text" placeholder="vpišite številko..."
-                            class="form-control input-md" required="">
-                        <span class="help-block"> Primer: 1</span>
-                    </div>
+            </div>
+
+            <!-- Text input-->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="ura">Ura:</label>
+                <div class="col-md-4">
+                    <input id="ura" name="ura" type="text" placeholder="ura..." class="form-control input-md"
+                        required="">
+                    <span class="help-block">Primer: 12:45</span>
                 </div>
+            </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="smer">Smer:</label>
-                    <div class="col-md-4">
-                        <input id="smer" name="smer" type="text" placeholder="vaša smer..."
-                            class="form-control input-md" required="">
-                        <span class="help-block">Vpišite kateri študij obiskujete</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="ucilnica">Učilnica:</label>
-                    <div class="col-md-4">
-                        <input id="ucilnica" name="ucilnica" type="text" placeholder="številka učilnice..."
-                            class="form-control input-md" required="">
-                        <span class="help-block">Primer: 201</span>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="predmet">Predmet:</label>
-                    <div class="col-md-4">
-                        <input id="predmet" name="predmet" type="text" placeholder="predmet..."
-                            class="form-control input-md" required="">
-                        <span class="help-block">Vpišite za kateri predmet nudite pomoč</span>
-                    </div>
-                </div>
-
-                <!-- HTML Form (wrapped in a .bootstrap-iso div) -->
-
-                <div class="form-group ">
-                    <label class="col-md-4 control-label" for="datum">Datum:</label>
-                    <div class="input-group col-md-4">
-                        <div class="input-group-addon">
-                            <i class="fa fa-calendar">
-                            </i>
-                        </div>
-                        <div class="col-md-20">
-                            <input class="form-control" required="" id="datum" name="datum" placeholder="MM/DD/YYYY"
-                                type="text" />
-                            <span class="help-block"> Primer: 25/8/2020</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
+            <!-- Button (Double) -->
+            <div class="form-group">
+                <label class="col-md-4 control-label" for="dodajdogodek"></label>
+                <div class="col-md-8">
+                    <button id="dodajdogodek" name="dodajdogodek" class="btn btn-success">Dodaj</button>
+                    <!--<button id="preklicidodajanje" name="preklicidodajanje" class="btn btn-danger">Prekliči</button> -->
 
                 </div>
+            </div>
 
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="ura">Ura:</label>
-                    <div class="col-md-4">
-                        <input id="ura" name="ura" type="text" placeholder="ura..." class="form-control input-md"
-                            required="">
-                        <span class="help-block">Primer: 12:45</span>
-                    </div>
-                </div>
+        </fieldset>
+    </form>
 
-                <!-- Button (Double) -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label" for="dodajdogodek"></label>
-                    <div class="col-md-8">
-                        <button id="dodajdogodek" name="dodajdogodek" class="btn btn-success">Dodaj</button> 
-                        <!--<button id="preklicidodajanje" name="preklicidodajanje" class="btn btn-danger">Prekliči</button> -->
+    <a href='/dogodki/'><button id="preklicidodajanje" name="preklicidodajanje"
+            class="btn btn-danger">Prekliči</button></a>
 
-                    </div>
-                </div>
-
-            </fieldset>
-        </form>
-        
-        <a href='/dogodki/'><button id="preklicidodajanje" name="preklicidodajanje"
-                class="btn btn-danger">Prekliči</button></a>
-
-    </div>
-
-
-
-    
+</div>
