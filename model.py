@@ -3,12 +3,52 @@ from typing import List
 import secrets
 
 
+#preverja datum
+def je_prestopno(leto):
+    if isinstance(leto, int):
+        return  leto % 4 == 0 and leto % 100 != 0 or leto % 400 == 0
+    else:
+        raise Exception("a")
+
+
+def stevilo_dni(mesec, leto): 
+    if not isinstance(mesec, int) or not isinstance(leto, int):
+        raise Exception("b")
+    if mesec == 1 or mesec == 3 or mesec == 5 or mesec == 7 or mesec == 8 or mesec == 10 or mesec == 12:
+       return 31
+    elif mesec == 4 or mesec == 6 or mesec == 9 or mesec == 11 :
+        return 30
+    elif mesec == 2 and je_prestopno(leto):
+        return 29
+    else: 
+        return 28  
+
+
+def je_veljaven_datum(dan, mesec, leto):
+    if not isinstance(dan, int):
+        raise Exception("c")
+    return   1 <= mesec <= 12 and 1 <= dan <= stevilo_dni(mesec, leto)
+
+def razbije_datum(niz):
+    return niz.split("/")
+
+#preveri uro
+def je_veljavna_ura(ura):
+    u = ura.split(":")
+    return 0 <= int(u[0]) <= 24 and  0 <= int(u[1]) <= 60
+
+
+
+
+
+
+
 
 class Tutor:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-        self.dogodki_tutor: List(Dogodek) = []  
+        self.dogodki: List(Dogodek) = []  
         
 
     def dodaj_dogodek(self, letnik: int, smer: str, ucilnica: int, predmet: str, ura: str): #doda dogodek in ga vrne
@@ -17,35 +57,34 @@ class Tutor:
         self.dogodki.append(nov)
         return nov
 
+        #tlele morem se id_dogodka nekako nastimat?
+
 
     
 
     #def izbrisi_dogodek(self, id_dogodka):
     
-
-    #def posodobi_dogodek(self, id_dogodka, letnik=None, smer=None, ucilnica=None, predmet=None, ura=None):
     
 class Ucenec:
     def __init__(self,  uporabnisko_ime: str, geslo: str):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-        self.dogodki_ucenec: List(Dogodek) = []  
+        self.dogodki: List(Dogodek) = []  
     
     
+
     def prijava_v_dogodek(self, id_dogodka):
-        for i, dogodek in enumerate(self.dogodki_ucenec):
+        for dogodek in self.dogodki:
             if id_dogodka == dogodek.id:
-                self.dogodki_ucenec.pop(i)
-                self.dogodki_tutor.append(dogodek)
+                self.dogodki.append(dogodek)
                 break
 
         
     
     def odjava_od_dogodka(self, id_dogodka):
-        for i, dogodek in enumerate(self.dogodki_tutor):
-            if id_dogodka == dogodek.id: #tle se mora se id funkcija ustvarit smz oz uprasi
-                self.dogodki_tutor.pop(i)
-                self.dogodki_ucenec.append(dogodek)
+        for i, dogodek in enumerate(self.dogodki):
+            if id_dogodka == dogodek.id: 
+                self.dogodki.pop(i)
                 break
         
 

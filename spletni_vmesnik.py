@@ -1,5 +1,5 @@
 import bottle
-from model import Ucenec, Tutor, Dogodek
+from model import *
 import db
 
 # slovar oseb
@@ -33,6 +33,7 @@ tip_osebe = {
 def zacetna_stran():
     bottle.redirect('/prijava/')
 
+
 #moras glede na tip povedat kam ga preusmeri ce ze ima cookie!!!!
 @bottle.get('/prijava/')
 def prijava_get():
@@ -43,7 +44,7 @@ def prijava_get():
         #if tip == 'Tutor':
         bottle.redirect('/dogodki/')
         #else:
-            #bottle.redirect('/dogodki-ucenec')
+            #bottle.redirect('/dogodki-ucenec/')
     else:
         return bottle.template('prijava.html', error='')
 
@@ -130,15 +131,20 @@ def dodaj_dogodek_post():
     smer = bottle.request.forms.getunicode('smer')
     ucilnica = bottle.request.forms.getunicode('ucilnica')
     predmet = bottle.request.forms.getunicode('predmet')
-
-    if db.dogodek_obstaja(datum, ura, ucilnica):
-        return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
+    dan, mesec, leto = int(model.razbije_datum(datum)[0]), int(model.razbije_datum(datum)[1]), int(model.razbije_datum(datum)[2])
+    
+    if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
+        if db.dogodek_obstaja(datum, ura, ucilnica):
+            return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
+        else:
+            nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
+            dodaj_dogodek()
+            db.dogodki.append(nov)
+            bottle.redirect('/')
     else:
-        nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
-        dodaj_dogodek()
-        db.dogodki.append(nov)
+        return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} ni veljaven.')
+   
 
-    bottle.redirect('/')
 
 
 @bottle.get('/dogodki-ucenec/') #dogodki ki jih vidis ce si registriran kot ucenec

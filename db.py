@@ -39,9 +39,13 @@ def dogodek_obstaja(datum, ura, ucilnica):
     return False
 
 
-
-#določi tip osebe
-#def kateri_tip(uporabnisko_ime):
+#slovar_dogodkov =  {87654: Dogodek(...),...}
+#slovar_stanja = {87654:1, 73645:2 }
+#dogodki_ucenci = []
+#for id in slovar_stanja:
+#    if slovar_stanja[id] == 1:
+#        dogodki_ucenci.append(slovar_dogodkov[id])
+#    return dogodki_ucenci
     
 
 
@@ -61,12 +65,13 @@ d2 = Dogodek('22/9/2020', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2
 
 t1.dogodki = [d1]
 t2.dogodki = [d2]
-u1.dogodki = [d1, d2]
-u2.dogodki = [d1, d2]
+u1.dogodki = [d2]
+u2.dogodki = [d1]
 
 
 tutorji += [t1, t2]
 ucenci += [u1, u2]
 dogodki += [d1, d2]
+dogodki_ucenec += [d1]
 
 
