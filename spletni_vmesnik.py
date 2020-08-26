@@ -2,31 +2,12 @@ import bottle
 from model import *
 import db
 
-# slovar oseb
-#tutor = 1
-#ucenec = 2
 
 tip_osebe = {
     1: 'Tutor',
     2: 'Ucenec'
 }
 
-
-
-
-
-# def dodaj_uporabnike():
-#    dogodki = []
-#    for d in db.dogodki:
-#        dogodki.append({
-#            'ime': d.ime,
-#            'letnik': str(d.letnik),
-#            'smer': d.smer,
-#            'ucilnica': d.ucilnica,
-#            'predmet': d.predmet,
-#            'ura': d.ura
-#        })
-#    return dogodki
 
 
 @bottle.get('/')
@@ -116,7 +97,6 @@ def dodaj_dogodek_get():
 def prijava_post():
     uporabnisko_ime = bottle.request.forms.getunicode('uporabnisko_ime')
     geslo = bottle.request.forms.getunicode('geslo')
-     #moras nekako dobit tip iz cookija vrjetno
     if db.obstaja(uporabnisko_ime, geslo):
         bottle.response.set_cookie('uporabnik', uporabnisko_ime, path='/')
         tip = db.slovar_tipov[uporabnisko_ime]
@@ -151,6 +131,8 @@ def registracija_post():
 
 @bottle.post('/dodaj-dogodek/') #tutor posreduje info o ustvarjenem dogodku
 def dodaj_dogodek_post():
+    tutor = bottle.request.get_cookie('uporabnik')
+    print(tutor)
     datum = bottle.request.forms.getunicode('datum')
     ura = bottle.request.forms.getunicode('ura')
     ime = bottle.request.forms.getunicode('imeinpriimek')
@@ -158,13 +140,15 @@ def dodaj_dogodek_post():
     smer = bottle.request.forms.getunicode('smer')
     ucilnica = bottle.request.forms.getunicode('ucilnica')
     predmet = bottle.request.forms.getunicode('predmet')
-    dan, mesec, leto = int(razbije_datum(datum)[0]), int(razbije_datum(datum)[1]), int(razbije_datum(datum)[2])
+    dan = int(razbije_datum(datum)[0])
+    mesec = int(razbije_datum(datum)[1])
+    leto = int(razbije_datum(datum)[2])
     
     if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
         if db.dogodek_obstaja(datum, ura, ucilnica):
             return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
         else:
-            nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet)
+            nov = Dogodek(datum, ura, ime, letnik, smer, ucilnica, predmet, tutor)
             db.dogodki.append(nov)
             bottle.redirect('/')
     elif je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):

@@ -7,7 +7,6 @@
     <h1> Uporabnik: {{uporabnik}}</h1>
 
     <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
-    <a href='/dodaj-dogodek/'><button class="btn btn-primary">Prijava na dogodek</button></a>  <!--ustvari prijavo na dogodek -->
     <table id="tablePreview" class="table">
         <!--Table head-->
         <thead>
@@ -19,6 +18,8 @@
                 <th>Smer</th>
                 <th>Učilnica</th>
                 <th>Predmet</th>
+                <th></th>
+                
                 
             </tr>
         </thead>
@@ -34,6 +35,7 @@
                 <td>{{dogodek['smer']}}</td>
                 <td>{{dogodek['ucilnica']}}</td>
                 <td>{{dogodek['predmet']}}</td>
+                <td><a href='/dogodki-ucenec/'><button class="btn btn-primary">Prijava na dogodek</button></a> </td>
             </tr>
 
             % end

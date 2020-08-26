@@ -88,7 +88,7 @@ class Ucenec:
 
 
 class Dogodek:
-    def __init__(self, datum: str, ura: str, ime: str, letnik: int, smer: str, ucilnica: int, predmet: str): #dodaj tutorja dogodka
+    def __init__(self, datum: str, ura: str, ime: str, letnik: int, smer: str, ucilnica: int, predmet: str, tutor): #dodaj tutorja dogodka
         self.datum: str = datum
         self.ura: str = ura
         self.ime: str = ime
@@ -97,16 +97,16 @@ class Dogodek:
         self.ucilnica: int = ucilnica
         self.predmet: str = predmet
         self.id = self.ustvari_id()
-        #self.tutor = tutor
-        #self.ucenec = None
+        self.tutor = tutor
+        self.ucenec = None
 
     
-    #def nastavi_ucenca(self, ucenec):
-    #    self.ucenec = ucenec
+    def nastavi_ucenca(self, ucenec):
+        self.ucenec = ucenec
 
 
     def ustvari_id(self): 
-        return secrets.token_urlsafe(5)
+        return secrets.token_urlsafe(7)
 
 
     
