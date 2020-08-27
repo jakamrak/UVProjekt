@@ -42,44 +42,40 @@ def je_veljavna_ura(ura):
     return 0 <= int(u[0]) <= 24 and 0 <= int(u[1]) <= 60
 
 
-class Tutor:
-    def __init__(self,  uporabnisko_ime: str, geslo: str):
+#preveri geslo
+def veljavno_geslo(geslo):
+    return len(geslo.strip()) >= 5 
+
+
+class Uporabnik:
+    class TIP:
+        TUTOR = 'tutor'
+        UCENEC = 'ucenec'
+    
+    @staticmethod
+    def ustvari(json:dict):
+        u = Uporabnik()
+        u.__dict__ = json
+        return u
+
+
+
+    def __init__(self,  uporabnisko_ime: str=None, geslo: str=None, tip: str=None):
         self.uporabnisko_ime: str = uporabnisko_ime
         self.geslo: str = geslo
-
-
-    #def dodaj_dogodek(self, letnik: int, smer: str, ucilnica: int, predmet: str, ura: str):
-    #    nov = Dogodek(datum, ura, ime, letnik, smer,ucilnica, predmet, self.uporabnisko_ime)
-    #    return nov
-
-
-    # def izbrisi_dogodek(self, id_dogodka):
-
-
-class Ucenec:
-    def __init__(self,  uporabnisko_ime: str, geslo: str):
-        self.uporabnisko_ime: str = uporabnisko_ime
-        self.geslo: str = geslo
-
-
-
-    #def prijava_v_dogodek(self, id_dogodka):
-    #    for dogodek in self.dogodki:
-    #        if id_dogodka == dogodek.id:
-    #            self.dogodki.append(dogodek)
-    #            break
-
-    #def odjava_od_dogodka(self, id_dogodka):
-    #    for i, dogodek in enumerate(self.dogodki):
-    #        if id_dogodka == dogodek.id:
-    #            self.dogodki.pop(i)
-    #            break
-
+        self.tip: str = tip
 
 
 
 class Dogodek:
-    def __init__(self, datum: str, ura: str, ime: str, letnik: int, smer: str, ucilnica: int, predmet: str, tutor):  # dodaj tutorja dogodka
+    @staticmethod
+    def ustvari(json:dict):
+        dogodek = Dogodek()
+        dogodek.__dict__ = json
+        return dogodek
+
+
+    def __init__(self, datum: str=None, ura: str=None, ime: str=None, letnik: int=None, smer: str=None, ucilnica: int=None, predmet: str=None, tutor=None):  # dodaj tutorja dogodka
         self.datum: str = datum
         self.ura: str = ura
         self.ime: str = ime
@@ -103,26 +99,5 @@ class Dogodek:
         return secrets.token_urlsafe(7)
 
 
-    def shrani_stanje(self, ime_datoteke):
-        slovar_dogodkov = {
-            self.id: {
-            'datum': self.datum,
-            'ime': self.ime,
-            'letnik': self.letnik,
-            'smer': self.smer,
-            'ucilnica': self.ucilnica,
-            'predmet': self.predmet,
-            'ura': self.ura,
-            'tutor': self.tutor,
-            'ucenec': self.ucenec
-        }
-        }
-        with open(ime_datoteke, 'w') as datoteka:
-            json.dump(slovar_dogodkov, datoteka, ensure_ascii=False, indent=4)
-
-
-    @classmethod
-    def nalozi_stanje(cls, ime_datoteke):
-        with open(ime_datoteke) as datoteka:
-            slovar_stanja = json.load(datoteka)
+    
       

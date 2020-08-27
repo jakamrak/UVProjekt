@@ -4,7 +4,13 @@
 
 <div class="container">
     <!--Table-->
+
     <h1> Uporabnik: {{uporabnik}}</h1>
+    <div>
+        <h4>
+            Dan: {{datum.strftime('%d. %m. %Y')}}
+        </h4>
+    </div>
 
     <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
 
@@ -35,7 +41,7 @@
                 <td>{{dogodek['smer']}}</td>
                 <td>{{dogodek['ucilnica']}}</td>
                 <td>{{dogodek['predmet']}}</td>
-                <td><a href='/dogodki-ucenec/'><button class="btn btn-primary">Odjava od dogodka</button></a> </td>
+                <td><a href='/dogodki-ucenec/odjava/{{dogodek["id"]}}'><button class="btn btn-primary">Odjava od dogodka</button></a> </td>
             </tr>
 
             % end
@@ -74,7 +80,7 @@
                 <td>{{dogodek['smer']}}</td>
                 <td>{{dogodek['ucilnica']}}</td>
                 <td>{{dogodek['predmet']}}</td>
-                <td><a href='/dogodki-ucenec/'><button class="btn btn-primary">Prijava na dogodek</button></a> </td>
+                <td><a href='/dogodki-ucenec/prijava/{{dogodek["id"]}}'><button class="btn btn-primary">Prijava na dogodek</button></a> </td>
             </tr>
 
             % end
