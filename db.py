@@ -4,10 +4,10 @@ from model import *
 
 tutorji: List[Tutor] = []
 ucenci: List[Ucenec] = []
-dogodki: List[Dogodek] = [] #probaj sortirat dogodke po uri in datumu
-dogodki_ucenec = [] #tukaj bojo zbrani prosti dogodki
+dogodki = {} #probaj sortirat dogodke po uri in datumu
 slovar_tipov = {}
-
+sez_idjev = [] #tle zbiram vse idje da ne bosta dva dogodka pomotoma imela istega
+               #ko se dogodku doda id se preveri ce je ta ze tle in ce je generiras drugega z while zanko, ko odstranis dogodek moras tudi ta id odstranit
 
 #preveri ali je kdo s tem uporabniskim imenom ze registriran
 def je_registriran(uporabnisko_ime):
@@ -33,10 +33,12 @@ def obstaja(uporabnisko_ime, geslo):
 
 
 def dogodek_obstaja(datum, ura, ucilnica):
-    for dogodek in dogodki:
+    for dogodek in dogodki.values():
         if dogodek.datum == datum and dogodek.ucilnica == ucilnica and dogodek.ura == ura:
             return True
     return False
+
+
 
 
 #slovar_dogodkov =  {87654: Dogodek(...),...}
@@ -62,16 +64,21 @@ u2 = Ucenec("ucenec2", "geslo2")
 
 d1 = Dogodek('28/12/2020', '14:30', 'dogodek1', 1, 'financna mat', 201, 'Analiza1', 't1')
 d2 = Dogodek('22/9/2020', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2', 't2')
+d1.ucenec = 'ucenec1'
 
-t1.dogodki = [d1]
-t2.dogodki = [d2]
-u1.dogodki = [d2]
-u2.dogodki = [d1]
+
+#t1.dogodki = [d1]
+#t2.dogodki = [d2]
+#u1.dogodki = [d2]
+#u2.dogodki = [d1]
 
 
 tutorji += [t1, t2]
 ucenci += [u1, u2]
-dogodki += [d1, d2]
-dogodki_ucenec += [d1]
-
+dogodki[1] = d1
+dogodki[2] = d2
+slovar_tipov['tutor1'] = 'Tutor'
+slovar_tipov['tutor2'] = 'Tutor'
+slovar_tipov['ucenec1'] = 'Ucenec'
+slovar_tipov['ucenec2'] = 'Ucenec'
 
