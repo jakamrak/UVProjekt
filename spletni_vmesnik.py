@@ -4,9 +4,6 @@ import db
 from datetime import date
 
 
-
-
-
 tip_osebe = {
     1: Uporabnik.TIP.TUTOR,
     2: Uporabnik.TIP.UCENEC
@@ -18,7 +15,6 @@ def zacetna_stran():
     bottle.redirect('/prijava/')
 
 
-# moras glede na tip povedat kam ga preusmeri ce ze ima cookie!!!!
 @bottle.get('/prijava/')
 def prijava_get():
     # da se ne rabi prijavit ce se je pred minuto prijavu
@@ -39,6 +35,7 @@ def registracija_get():
     return bottle.template('registracija.html', error='')
 
 
+# dogodki ki jih vidis ce si registriran kot tutor
 @bottle.get('/dogodki/')
 def dogodki_get():
     # da ne mores prek urlja kr do dogodkov mimo prijave
@@ -177,8 +174,9 @@ def dogodek_prijava(id):
     ucenec = bottle.request.get_cookie('uporabnik')
     if db.uporabnik_najdi(ucenec) is not None:
         for d in db.dogodki:
-            d.nastavi_ucenca(ucenec)
-            db.shrani_stanje()
+            if d.id == id:
+                d.nastavi_ucenca(ucenec)
+                db.shrani_stanje()
     bottle.redirect('/')
 
 
@@ -194,7 +192,7 @@ def dogodek_odjava(id):
     
 
     
-#if __name__ == '__main__':
-print('Db: naloži stanje.')
+
+
 db.nalozi_stanje()
 bottle.run(debug=True, reloader=True)
