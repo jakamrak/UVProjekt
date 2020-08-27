@@ -66,42 +66,12 @@ def nalozi_stanje():
 
 
 
-#slovar_dogodkov =  {87654: Dogodek(...),...}
-#slovar_stanja = {87654:1, 73645:2 }  #1 pomeni prosto 2 pa zasedeno
-#dogodki_ucenec = []
-#for id in slovar_stanja:
-#    if slovar_stanja[id] == 1:
-#        dogodki_ucenec.append(slovar_dogodkov[id])
-#    return dogodki_ucenec
-    
+#REFERENCE
+
+#.this
+#https://stackoverflow.com/questions/1977362/how-to-create-module-wide-variables-in-python
 
 
-
-
-
-
-#testni
-#t1 = Uporabnik("tutor1", "geslo1", Uporabnik.TIP.TUTOR)
-#t2 = Uporabnik("tutor2", "geslo2", Uporabnik.TIP.TUTOR)
-#
-#u1 = Uporabnik("ucenec1", "geslo1", Uporabnik.TIP.UCENEC)
-#u2 = Uporabnik("ucenec2", "geslo2", Uporabnik.TIP.UCENEC)
-#
-#d1 = Dogodek('28/12/2020', '14:30', 'dogodek1', 1, 'financna mat', 201, 'Analiza1', 't1')
-#d2 = Dogodek('22/9/2020', '17:30', 'dogodek2', 3, 'financna mat', 205, 'Analiza2', 't2')
-#d1.ucenec = 'ucenec1'
-
-
-#t1.dogodki = [d1]
-#t2.dogodki = [d2]
-#u1.dogodki = [d2]
-#u2.dogodki = [d1]
-
-
-#uporabniki += [t1, t2, u1, u2]
-#
-#dogodki[d1.id] = d1
-#dogodki[d2.id] = d2
 
 
 
