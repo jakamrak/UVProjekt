@@ -1,5 +1,3 @@
-# tukaj bom ustvaril model za mojo stran
-from typing import List
 import secrets
 import json
 

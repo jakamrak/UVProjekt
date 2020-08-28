@@ -1,12 +1,12 @@
 import bottle
-from model import *
+import model
 import db
 from datetime import date
 
 
 tip_osebe = {
-    1: Uporabnik.TIP.TUTOR,
-    2: Uporabnik.TIP.UCENEC
+    1: model.Uporabnik.TIP.TUTOR,
+    2: model.Uporabnik.TIP.UCENEC
 }
 
 
@@ -22,7 +22,7 @@ def prijava_get():
     if uporabnisko_ime is not None:
         uporabnik = db.uporabnik_najdi(uporabnisko_ime)
         if uporabnik is not None:
-            if uporabnik.tip == Uporabnik.TIP.TUTOR:
+            if uporabnik.tip == model.Uporabnik.TIP.TUTOR:
                 bottle.redirect('/dogodki/')
             else:
                 bottle.redirect('/dogodki-ucenec/')
@@ -96,7 +96,7 @@ def prijava_post():
     if db.uporabnik_obstaja(uporabnisko_ime, geslo):
         bottle.response.set_cookie('uporabnik', uporabnisko_ime, path='/')
         uporabnik = db.uporabnik_najdi(uporabnisko_ime)
-        if uporabnik.tip == Uporabnik.TIP.TUTOR:
+        if uporabnik.tip == model.Uporabnik.TIP.TUTOR:
             bottle.redirect('/dogodki/')
         else:
             bottle.redirect('/dogodki-ucenec/')
@@ -110,16 +110,15 @@ def registracija_post():
     geslo = bottle.request.forms.getunicode('geslo')
     tip = tip_osebe[int(bottle.request.forms.getunicode('tip_osebe'))]
 
-    if not veljavno_geslo(geslo):
+    if not model.veljavno_geslo(geslo):
         return bottle.template('registracija.html', error=f'Geslo mora vsebovati vsaj 5 znakov.')
 
     if db.je_registriran(uporabnisko_ime):
         return bottle.template('registracija.html', error=f'Uporabniško ime "{uporabnisko_ime}" že obstaja.')
 
-    uporabnik = Uporabnik(uporabnisko_ime, geslo, tip)
+    uporabnik = model.Uporabnik(uporabnisko_ime, geslo, tip)
     db.uporabniki.append(uporabnik)
     db.shrani_stanje()
-
     bottle.redirect('/')
 
 
@@ -133,22 +132,23 @@ def dodaj_dogodek_post():
     smer = bottle.request.forms.getunicode('smer')
     ucilnica = bottle.request.forms.getunicode('ucilnica')
     predmet = bottle.request.forms.getunicode('predmet')
-    dan = int(razbije_datum(datum)[0])
-    mesec = int(razbije_datum(datum)[1])
-    leto = int(razbije_datum(datum)[2])
+    razbit_datum = model.razbije_datum(datum)
+    dan = int(razbit_datum[0])
+    mesec = int(razbit_datum[1])
+    leto = int(razbit_datum[2])
 
-    if je_veljaven_datum(dan, mesec, leto) and je_veljavna_ura(ura):
+    if model.je_veljaven_datum(dan, mesec, leto) and model.je_veljavna_ura(ura):
         if db.dogodek_obstaja(datum, ura, ucilnica):
             return bottle.template('dodaj_dogodek.html', error=f'Dogodek {datum} ob {ura} v učilnici {ucilnica} že obstaja.')
         else:
-            nov = Dogodek(datum, ura, ime, letnik, smer,
-                          ucilnica, predmet, tutor)
+            nov = model.Dogodek(datum, ura, ime, letnik,
+                                smer, ucilnica, predmet, tutor)
             db.dogodki.append(nov)
             db.shrani_stanje()
             bottle.redirect('/')
-    elif je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):
+    elif model.je_veljaven_datum(dan, mesec, leto) and not model.je_veljavna_ura(ura):
         return bottle.template('dodaj_dogodek.html', error=f'Ura {ura} ni veljavna.')
-    elif not je_veljaven_datum(dan, mesec, leto) and not je_veljavna_ura(ura):
+    elif not model.je_veljaven_datum(dan, mesec, leto) and not model.je_veljavna_ura(ura):
         return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} in ura {ura} nista veljavna.')
     else:
         return bottle.template('dodaj_dogodek.html', error=f'Datum {datum} ni veljaven.')
@@ -156,9 +156,9 @@ def dodaj_dogodek_post():
 
 @bottle.get('/dogodki/odstrani/<id>')  # za izbris dogodka
 def dogodek_odstrani(id):
-    for i, d in enumerate(db.dogodki):
-        if d.id == id:
-            db.dogodki.remove(d)
+    for i, dogodek in enumerate(db.dogodki):
+        if dogodek.id == id:
+            db.dogodki.remove(dogodek)
             db.shrani_stanje()
     bottle.redirect('/')
 
@@ -167,9 +167,9 @@ def dogodek_odstrani(id):
 def dogodek_prijava(id):
     ucenec = bottle.request.get_cookie('uporabnik')
     if db.uporabnik_najdi(ucenec) is not None:
-        for d in db.dogodki:
-            if d.id == id:
-                d.nastavi_ucenca(ucenec)
+        for dogodek in db.dogodki:
+            if dogodek.id == id:
+                dogodek.nastavi_ucenca(ucenec)
                 db.shrani_stanje()
     bottle.redirect('/')
 
@@ -178,9 +178,9 @@ def dogodek_prijava(id):
 def dogodek_odjava(id):
     ucenec = bottle.request.get_cookie('uporabnik')
     if db.uporabnik_najdi(ucenec) is not None:
-        for d in db.dogodki:
-            if d.id == id:
-                d.odstrani_ucenca(ucenec)
+        for dogodek in db.dogodki:
+            if dogodek.id == id:
+                dogodek.odstrani_ucenca(ucenec)
                 db.shrani_stanje()
     bottle.redirect('/')
 

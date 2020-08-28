@@ -1,9 +1,7 @@
-# database
-from typing import List
-from model import *
+import model
 import sys
 import os.path
-
+import json
 
 DATOTEKA_DB = 'db.json'
 
@@ -55,9 +53,10 @@ def nalozi_stanje():
     if os.path.isfile(DATOTEKA_DB):
         with open(DATOTEKA_DB) as datoteka:
             db_json = json.load(datoteka)
-            this.uporabniki = [Uporabnik.ustvari(
+            this.uporabniki = [model.Uporabnik.ustvari(
                 u) for u in db_json['uporabniki']]
-            this.dogodki = [Dogodek.ustvari(d) for d in db_json['dogodki']]
+            this.dogodki = [model.Dogodek.ustvari(
+                d) for d in db_json['dogodki']]
 
 
 # REFERENCE
