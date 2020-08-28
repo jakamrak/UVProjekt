@@ -52,7 +52,8 @@ def dogodki_get():
         for d in db.dogodki:
             if d.tutor == uporabnisko_ime:
                 moji_dogodki.append(d.__dict__)
-        return bottle.template('dogodki.html', dogodki=dogodki, moji_dogodki=moji_dogodki, uporabnik=uporabnisko_ime, datum=datum)
+        return bottle.template('dogodki.html', dogodki=dogodki, moji_dogodki=moji_dogodki,
+                               uporabnik=uporabnisko_ime, datum=datum)
 
 
 # dogodki ki jih vidis ce si registriran kot ucenec
@@ -73,7 +74,8 @@ def dogodki_ucenec_get():
             if d.ucenec == uporabnisko_ime:
                 moji_dogodki.append(d.__dict__)
 
-        return bottle.template('dogodki_ucenec.html', dogodki=dogodki, moji_dogodki=moji_dogodki, uporabnik=uporabnisko_ime, datum=datum)
+        return bottle.template('dogodki_ucenec.html', dogodki=dogodki, moji_dogodki=moji_dogodki,
+                               uporabnik=uporabnisko_ime, datum=datum)
 
 
 @ bottle.get('/odjava/')
