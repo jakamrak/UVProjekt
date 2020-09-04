@@ -7,8 +7,8 @@
         <h1> Uporabnik: {{uporabnik}}</h1>
         <h4> Dan: {{datum.strftime('%d. %m. %Y')}}</h4>
 
-        <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
-        <a href='/dodaj-dogodek/'><button class="btn btn-primary">Dodaj dogodek</button></a>
+        <a href='/odjava/'><button class="btn btn-primary" style="background-color: #003049; "> Odjava</button></a>
+        <a href='/dodaj-dogodek/'><button class="btn btn-primary" style="background-color: #003049;">Dodaj dogodek</button></a>
         <table id="tablePreview" class="table">
             <!--Table head-->
             <h3>Moji dogodki:</h3>
@@ -21,6 +21,7 @@
                     <th>Smer</th>
                     <th>Učilnica</th>
                     <th>Predmet</th>
+                    <th>Učenec</th>
                     <th></th>
                     
                 </tr>
@@ -37,6 +38,7 @@
                     <td>{{dogodek['smer']}}</td>
                     <td>{{dogodek['ucilnica']}}</td>
                     <td>{{dogodek['predmet']}}</td>
+                    <td>{{dogodek['ucenec']}}</td>
                     <td><a href="/dogodki/odstrani/{{dogodek['id']}}"><button class="btn btn-primary">Odstrani dogodek</button></a> </td>
                 </tr>
 

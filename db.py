@@ -7,7 +7,7 @@ DATOTEKA_DB = 'db.json'
 
 this = sys.modules[__name__]
 this.uporabniki = []
-this.dogodki = []  # probaj sortirat dogodke po uri in datumu
+this.dogodki = []  
 
 
 # preveri ali je kdo s tem uporabniskim imenom ze registriran

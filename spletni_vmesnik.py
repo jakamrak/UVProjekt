@@ -156,7 +156,7 @@ def dodaj_dogodek_post():
 
 @bottle.get('/dogodki/odstrani/<id>')  # za izbris dogodka
 def dogodek_odstrani(id):
-    for i, dogodek in enumerate(db.dogodki):
+    for dogodek in db.dogodki:
         if dogodek.id == id:
             db.dogodki.remove(dogodek)
             db.shrani_stanje()

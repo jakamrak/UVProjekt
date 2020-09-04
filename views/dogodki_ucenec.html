@@ -12,7 +12,7 @@
         </h4>
     </div>
 
-    <a href='/odjava/'><button class="btn btn-primary">Odjava</button></a>
+    <a href='/odjava/'><button class="btn btn-primary" style="background-color: #003049">Odjava</button></a>
 
     <h3>Moji dogodki:</h3>
     <table id="tablePreview" class="table">
@@ -41,7 +41,7 @@
                 <td>{{dogodek['smer']}}</td>
                 <td>{{dogodek['ucilnica']}}</td>
                 <td>{{dogodek['predmet']}}</td>
-                <td><a href='/dogodki-ucenec/odjava/{{dogodek["id"]}}'><button class="btn btn-primary">Odjava od dogodka</button></a> </td>
+                <td><a href='/dogodki-ucenec/odjava/{{dogodek["id"]}}'><button class="btn btn-primary" style="background-color: #003049;">Odjava od dogodka</button></a> </td>
             </tr>
 
             % end
@@ -80,7 +80,7 @@
                 <td>{{dogodek['smer']}}</td>
                 <td>{{dogodek['ucilnica']}}</td>
                 <td>{{dogodek['predmet']}}</td>
-                <td><a href='/dogodki-ucenec/prijava/{{dogodek["id"]}}'><button class="btn btn-primary">Prijava na dogodek</button></a> </td>
+                <td><a href='/dogodki-ucenec/prijava/{{dogodek["id"]}}'><button class="btn btn-primary" style="background-color: #003049;">Prijava na dogodek</button></a> </td>
             </tr>
 
             % end
