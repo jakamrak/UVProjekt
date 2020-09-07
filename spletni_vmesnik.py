@@ -21,7 +21,7 @@ def prijava_get():
     uporabnisko_ime = bottle.request.get_cookie('uporabnik')
     if uporabnisko_ime is not None:
         uporabnik = db.uporabnik_najdi(uporabnisko_ime)
-        if uporabnik is not None:
+        if uporabnik is not None:  #prepričam se da tak Uporabnik() res obstaja
             if uporabnik.tip == model.Uporabnik.TIP.TUTOR:
                 bottle.redirect('/dogodki/')
             else:
@@ -180,7 +180,7 @@ def dogodek_odjava(id):
     if db.uporabnik_najdi(ucenec) is not None:
         for dogodek in db.dogodki:
             if dogodek.id == id:
-                dogodek.odstrani_ucenca(ucenec)
+                dogodek.odstrani_ucenca()
                 db.shrani_stanje()
     bottle.redirect('/')
 

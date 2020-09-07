@@ -69,7 +69,7 @@ class Dogodek:
         dogodek.__dict__ = json
         return dogodek
 
-    def __init__(self, datum: str = None, ura: str = None, ime: str = None, letnik: int = None, smer: str = None, ucilnica: int = None, predmet: str = None, tutor=None):  # dodaj tutorja dogodka
+    def __init__(self, datum: str = None, ura: str = None, ime: str = None, letnik: int = None, smer: str = None, ucilnica: int = None, predmet: str = None, tutor=None):  
         self.datum: str = datum
         self.ura: str = ura
         self.ime: str = ime
@@ -84,7 +84,7 @@ class Dogodek:
     def nastavi_ucenca(self, ucenec):  # to je ob prijavi
         self.ucenec = ucenec
 
-    def odstrani_ucenca(self, ucenec):  # ob odjavi od dogodka
+    def odstrani_ucenca(self):  # ob odjavi od dogodka
         self.ucenec = None
 
     def ustvari_id(self):
