@@ -1,5 +1,5 @@
 import secrets
-import json
+
 
 
 # preverja datum
@@ -17,7 +17,7 @@ def stevilo_dni(mesec, leto):
         return 29
     elif mesec == 2:
         return 28
-    elif mesec == 4 or mesec == 6 or mesec == 9 or mesec == 11:
+    elif mesec in [4, 6, 9, 11]:
         return 30
     else:
         return 31
